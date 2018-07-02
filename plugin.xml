@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../engine/Shopware/Components/Plugin/schema/plugin.xsd">
+    <label>Automatic status emails</label>
+    <label lang="de">Automatische Status E-Mails</label>
+    <version>1.0.0</version>
+    <copyright>(c) 3.0</copyright>
+    <link>https://dreipunktnull.com</link>
+    <author>Björn Fromme, 3.0</author>
+    <compatibility minVersion="5.4.0" />
+</plugin>

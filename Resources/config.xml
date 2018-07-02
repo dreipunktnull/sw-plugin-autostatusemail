@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../../engine/Shopware/Components/Plugin/schema/config.xsd">
+
+    <elements>
+        <element type="combo">
+            <name>dpnOrderStatus</name>
+            <label>Order Status</label>
+            <label lang="de">Bestellstatus</label>
+            <description>Order status to send emails for</description>
+            <description lang="de">Bestellstatus, bei denen E-Mails versendet werden sollen</description>
+            <store>Shopware.store.OrderStatus</store>
+            <options>
+                <valueField>id</valueField>
+                <displayField>description</displayField>
+                <multiSelect>true</multiSelect>
+            </options>
+        </element>
+        <element type="combo">
+            <name>dpnPaymentStatus</name>
+            <label>Payment Status</label>
+            <label lang="de">Zahlungsstatus</label>
+            <description>Payment status to send emails for</description>
+            <description lang="de">Zahlungsstatus, bei denen E-Mails versendet werden sollen</description>
+            <store>Shopware.store.PaymentStatus</store>
+            <options>
+                <valueField>id</valueField>
+                <displayField>description</displayField>
+                <multiSelect>true</multiSelect>
+            </options>
+        </element>
+    </elements>
+
+</config>
