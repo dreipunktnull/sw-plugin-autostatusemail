@@ -4,11 +4,11 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="dpn_order_email.subscriber.order_status" class="DpnAutoStatusEmail\Subscriber\OrderStatusSubscriber">
+        <service id="dpn_auto_status_email.subscriber.order_status" class="DpnAutoStatusEmail\Subscriber\OrderStatusSubscriber">
             <argument type="service" id="service_container"/>
             <tag name="doctrine.event_subscriber" />
         </service>
-        <service id="dpn_order_email.subscriber.mail_popup" class="DpnAutoStatusEmail\Subscriber\PreventMailPopupSubscriber">
+        <service id="dpn_auto_status_email.subscriber.mail_popup" class="DpnAutoStatusEmail\Subscriber\MailPopupSubscriber">
             <argument type="service" id="service_container"/>
             <tag name="shopware.event_subscriber" />
         </service>

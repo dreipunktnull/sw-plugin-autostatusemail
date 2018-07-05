@@ -6,7 +6,7 @@ use Enlight\Event\SubscriberInterface;
 use Shopware\Models\Order\Order;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class PreventMailPopupSubscriber implements SubscriberInterface
+class MailPopupSubscriber implements SubscriberInterface
 {
     /**
      * @var array
