@@ -34,7 +34,10 @@ class OrderStatusSubscriber implements EventSubscriber
      */
     public function getSubscribedEvents()
     {
-        return [ Events::preUpdate, Events::postUpdate ];
+        return [
+            Events::preUpdate,
+            Events::postUpdate,
+        ];
     }
 
     /**
