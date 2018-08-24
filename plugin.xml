@@ -3,11 +3,11 @@
         xsi:noNamespaceSchemaLocation="../../../engine/Shopware/Components/Plugin/schema/plugin.xsd">
     <label>Automatic status emails</label>
     <label lang="de">Automatische Status E-Mails</label>
-    <version>1.1.1</version>
+    <version>1.1.2</version>
     <copyright>(c) 3.0</copyright>
     <link>https://dreipunktnull.com</link>
     <author>Björn Fromme, 3.0</author>
-    <compatibility minVersion="5.3.0" />
+    <compatibility minVersion="5.2.0" />
     <changelog version="1.0.0">
         <changes>Initial plugin release</changes>
         <changes lang="de">Erster Plugin Release</changes>
@@ -19,5 +19,9 @@
     <changelog version="1.1.1">
         <changes>Minimum version constraint for Shopware lowered to 5.3</changes>
         <changes lang="de">Shopware Mindestanforderung auf Version 5.3 reduziert</changes>
+    </changelog>
+    <changelog version="1.1.2">
+        <changes>Minimum version constraint for Shopware lowered to 5.2</changes>
+        <changes lang="de">Shopware Mindestanforderung auf Version 5.2 reduziert</changes>
     </changelog>
 </plugin>
