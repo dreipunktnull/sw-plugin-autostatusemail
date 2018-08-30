@@ -47,6 +47,10 @@ class MailPopupSubscriber implements SubscriberInterface
         $request = $controller->Request();
         $orderId = $request->get('id');
 
+        if ($request->getActionName() !== 'save') {
+            return;
+        }
+
         if (empty($orderId)) {
             return;
         }
