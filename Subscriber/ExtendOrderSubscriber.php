@@ -40,6 +40,7 @@ class ExtendOrderSubscriber implements SubscriberInterface
 
         if ($controller->Request()->getActionName() === 'load') {
             $controller->View()->extendsTemplate('backend/dpn_auto_status_email/order/controller/list.js');
+            $controller->View()->extendsTemplate('backend/dpn_auto_status_email/order/model/mail.js');
         }
     }
 

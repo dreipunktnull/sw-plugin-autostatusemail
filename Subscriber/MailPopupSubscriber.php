@@ -88,7 +88,7 @@ class MailPopupSubscriber implements SubscriberInterface
         $orderStatusId = $data['orderStatus']['id'];
         $paymentStatusId = $data['paymentStatus']['id'];
 
-        $data['mail']['auto'] = $this->isHideMailPopup($orderId, $orderStatusId, $paymentStatusId);
+        $data['mail']['isAutoSend'] = $this->isHideMailPopup($orderId, $orderStatusId, $paymentStatusId);
 
         $view->assign('data', $data);
     }

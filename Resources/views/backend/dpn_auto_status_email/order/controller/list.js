@@ -6,7 +6,7 @@ Ext.define('Shopware.apps.DpnAutoStatusMailOrder.controller.List', {
     showOrderMail: function(mail, record) {
         var me = this, message;
 
-        if (mail.raw.auto === true) {
+        if (mail.get('isAutoSend') === true) {
             message = '{s name=auto_email_sent}Notification email will be sent automatically{/s}';
             Shopware.Notification.createGrowlMessage(me.snippets.successTitle, message, me.snippets.growlMessage)
         } else {
