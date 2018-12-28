@@ -2,6 +2,14 @@
 
 namespace DpnAutoStatusEmail\Subscriber;
 
+/**
+ * Copyright notice
+ *
+ * (c) Björn Fromme <fromme@dreipunktnull.com>, dreipunktnull
+ *
+ * All rights reserved
+ */
+
 use Enlight\Event\SubscriberInterface;
 use Shopware\Models\Order\Order;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -101,9 +109,16 @@ class MailPopupSubscriber implements SubscriberInterface
      */
     protected function isHideMailPopup($orderId, $orderStatusId, $paymentStatusId)
     {
-        $config = $this->container->get('config');
-        $selectedPaymentStatusIds = $config->getByNamespace('DpnAutoStatusEmail', 'dpnPaymentStatus');
-        $selectedOrderStatusIds = $config->getByNamespace('DpnAutoStatusEmail', 'dpnOrderStatus');
+        $config = $this->container->get('shopware.plugin.cached_config_reader')->getByPluginName('DpnAutoStatusEmail');
+
+        $sendOnManualStatusChange = $config['dpnSendOnManualStatusChange'];
+
+        if (!$sendOnManualStatusChange) {
+            return false;
+        }
+
+        $selectedPaymentStatusIds = $config['dpnPaymentStatus'];
+        $selectedOrderStatusIds = $config['dpnOrderStatus'];
 
         $isSelectedOrderStatusId = in_array($orderStatusId, $selectedOrderStatusIds, true);
         $isSelectedPaymentStatusId = in_array($paymentStatusId, $selectedPaymentStatusIds, true);

@@ -2,6 +2,14 @@
 
 namespace DpnAutoStatusEmail\Subscriber;
 
+/**
+ * Copyright notice
+ *
+ * (c) Björn Fromme <fromme@dreipunktnull.com>, dreipunktnull
+ *
+ * All rights reserved
+ */
+
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
@@ -84,10 +92,9 @@ class OrderStatusSubscriber implements EventSubscriber
             return;
         }
 
-        /** @var \Shopware_Components_Config $config */
-        $config = $this->container->get('config');
-        $selectedPaymentStatusIds = $config->getByNamespace('DpnAutoStatusEmail', 'dpnPaymentStatus');
-        $selectedOrderStatusIds = $config->getByNamespace('DpnAutoStatusEmail', 'dpnOrderStatus');
+        $config = $this->container->get('shopware.plugin.cached_config_reader')->getByPluginName('DpnAutoStatusEmail');
+        $selectedPaymentStatusIds = $config['dpnPaymentStatus'];
+        $selectedOrderStatusIds = $config['dpnOrderStatus'];
 
         $changedStatus = static::$orders[$orderId];
 

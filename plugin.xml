@@ -3,7 +3,7 @@
         xsi:noNamespaceSchemaLocation="../../../engine/Shopware/Components/Plugin/schema/plugin.xsd">
     <label>Automatic status emails</label>
     <label lang="de">Automatische Status E-Mails</label>
-    <version>1.1.4</version>
+    <version>1.2.0</version>
     <copyright>(c) 3.0</copyright>
     <link>https://dreipunktnull.com</link>
     <author>Björn Fromme, 3.0</author>
@@ -31,5 +31,9 @@
     <changelog version="1.1.4">
         <changes>Properly extend the ExtJS model</changes>
         <changes lang="de">Korrektes Erweitern des ExtJS Models</changes>
+    </changelog>
+    <changelog version="1.2.0">
+        <changes>New configuration option for email sending on manual status changes</changes>
+        <changes lang="de">Neue Konfigurationsmöglichkeit zum Versand bei manuellem Statuswechsel</changes>
     </changelog>
 </plugin>
