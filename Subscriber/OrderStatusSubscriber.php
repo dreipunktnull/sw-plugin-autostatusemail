@@ -118,6 +118,13 @@ class OrderStatusSubscriber implements EventSubscriber
     {
         if (in_array($newStatusId, $selectedStatusIds, true)) {
             $mail = Shopware()->Modules()->Order()->createStatusMail($orderId, $newStatusId);
+            if ($mail === null) {
+                $message = $this->container
+                    ->get('snippets')
+                    ->getNamespace('backend/dpn_auto_status_email/translations')
+                    ->get('auto_email_missing_template');
+                throw new \RuntimeException(sprintf($message, $newStatusId));
+            }
             Shopware()->Modules()->Order()->sendStatusMail($mail);
         }
     }
