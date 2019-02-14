@@ -29,14 +29,6 @@
                 <multiSelect>true</multiSelect>
             </options>
         </element>
-        <element type="boolean">
-            <name>dpnSendOnManualStatusChange</name>
-            <label>On manual status change</label>
-            <label lang="de">Bei manueller Statusänderung</label>
-            <value>true</value>
-            <description>Send emails automatically on manual status changes as well</description>
-            <description lang="de">E-Mails auch bei manuellen Statusänderungen automatisch versenden</description>
-        </element>
     </elements>
 
 </config>

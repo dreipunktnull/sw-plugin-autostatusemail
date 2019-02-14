@@ -111,12 +111,6 @@ class MailPopupSubscriber implements SubscriberInterface
     {
         $config = $this->container->get('shopware.plugin.cached_config_reader')->getByPluginName('DpnAutoStatusEmail');
 
-        $sendOnManualStatusChange = $config['dpnSendOnManualStatusChange'];
-
-        if (!$sendOnManualStatusChange) {
-            return false;
-        }
-
         $selectedPaymentStatusIds = $config['dpnPaymentStatus'];
         $selectedOrderStatusIds = $config['dpnOrderStatus'];
 
