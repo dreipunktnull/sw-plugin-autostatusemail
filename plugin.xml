@@ -3,7 +3,7 @@
         xsi:noNamespaceSchemaLocation="../../../engine/Shopware/Components/Plugin/schema/plugin.xsd">
     <label>Automatic status emails</label>
     <label lang="de">Automatische Status E-Mails</label>
-    <version>1.2.2</version>
+    <version>1.2.3</version>
     <copyright>(c) 3.0</copyright>
     <link>https://dreipunktnull.com</link>
     <author>Björn Fromme, 3.0</author>
@@ -43,5 +43,9 @@
     <changelog version="1.2.2">
         <changes>Removes inconsistently working feature for email sending on manual status changes</changes>
         <changes lang="de">Konfigurationsmöglichkeit zum Versand bei manuellem Statuswechsel wegen instabiler Funktionalität entfernt</changes>
+    </changelog>
+    <changelog version="1.2.3">
+        <changes>Fixes an issue that would prevent order status changes being stored in case email could not be sent</changes>
+        <changes lang="de">Behebt ein Problem, das die Speicherung von Statusänderungen im Falle von Fehlern beim E-Mail Versand verhindert</changes>
     </changelog>
 </plugin>
