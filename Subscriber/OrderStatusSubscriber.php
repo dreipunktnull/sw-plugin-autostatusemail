@@ -14,6 +14,7 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
+use Shopware\Components\Logger;
 use Shopware\Models\Order\Order;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -116,16 +117,30 @@ class OrderStatusSubscriber implements EventSubscriber
      */
     protected function sendStatusEmail($orderId, $newStatusId, array $selectedStatusIds)
     {
-        if (in_array($newStatusId, $selectedStatusIds, true)) {
-            $mail = Shopware()->Modules()->Order()->createStatusMail($orderId, $newStatusId);
-            if ($mail === null) {
-                $message = $this->container
-                    ->get('snippets')
-                    ->getNamespace('backend/dpn_auto_status_email/translations')
-                    ->get('auto_email_missing_template');
-                throw new \RuntimeException(sprintf($message, $newStatusId));
-            }
+        if (!in_array($newStatusId, $selectedStatusIds, true)) {
+            return;
+        }
+        $mail = Shopware()->Modules()->Order()->createStatusMail($orderId, $newStatusId);
+        if ($mail === null) {
+            $message = $this->container
+                ->get('snippets')
+                ->getNamespace('backend/dpn_auto_status_email/translations')
+                ->get('auto_email_missing_template');
+            throw new \RuntimeException(sprintf($message, $newStatusId));
+        }
+        try {
             Shopware()->Modules()->Order()->sendStatusMail($mail);
+        }
+        catch (\Exception $e) {
+            /** @var Logger $logger */
+            $logger = $this->container->get('pluginlogger');
+            $logger->error(
+                'Status email could not be send',
+                [
+                    'orderId' => $orderId,
+                    'status' => $newStatusId,
+                ]
+            );
         }
     }
 }
