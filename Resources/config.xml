@@ -3,7 +3,7 @@
         xsi:noNamespaceSchemaLocation="../../../../engine/Shopware/Components/Plugin/schema/config.xsd">
 
     <elements>
-        <element type="combo">
+        <element type="combo" scope="shop">
             <name>dpnOrderStatus</name>
             <label>Order Status</label>
             <label lang="de">Bestellstatus</label>
@@ -16,7 +16,7 @@
                 <multiSelect>true</multiSelect>
             </options>
         </element>
-        <element type="combo">
+        <element type="combo" scope="shop">
             <name>dpnPaymentStatus</name>
             <label>Payment Status</label>
             <label lang="de">Zahlungsstatus</label>
