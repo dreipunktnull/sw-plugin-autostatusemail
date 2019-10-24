@@ -16,6 +16,7 @@ use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
 use Shopware\Components\Logger;
 use Shopware\Models\Order\Order;
+use Shopware\Models\Shop\Shop;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class OrderStatusSubscriber implements EventSubscriber
@@ -92,8 +93,9 @@ class OrderStatusSubscriber implements EventSubscriber
         if (!isset(static::$orders[$orderId])) {
             return;
         }
+        $shop = $order->getShop();
+        $config = $this->getConfig($shop);
 
-        $config = $this->getConfig();
         $selectedPaymentStatusIds = $config['dpnPaymentStatus'];
         $selectedOrderStatusIds = $config['dpnOrderStatus'];
 
@@ -147,10 +149,9 @@ class OrderStatusSubscriber implements EventSubscriber
     /**
      * @return array
      */
-    protected function getConfig()
+    protected function getConfig(Shop $shop)
     {
         $configReader = $this->container->get('shopware.plugin.cached_config_reader');
-        $shop = Shopware()->Models()->getRepository(Shop::class)->getActiveDefault();
 
         return $configReader->getByPluginName('DpnAutoStatusEmail', $shop);
     }        

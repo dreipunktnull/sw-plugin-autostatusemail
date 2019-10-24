@@ -67,8 +67,11 @@ class MailPopupSubscriber implements SubscriberInterface
             return;
         }
 
-        /** @var Order $order */
-        $order = Shopware()->Models()->getRepository(Order::class)->find($orderId);
+        $order = $this->getOrderById($orderId);
+
+        if (null === $order) {
+            return;
+        }
 
         static::$orders[$orderId] = [
             'orderStatusBefore' => $order->getOrderStatus()->getId(),
@@ -90,27 +93,35 @@ class MailPopupSubscriber implements SubscriberInterface
             return;
         }
 
+        $order = $this->getOrderById($orderId);
+
+        if (null === $order) {
+            return;
+        }
+
         $view = $controller->View();
         $data = $view->getAssign('data');
 
         $orderStatusId = $data['orderStatus']['id'];
         $paymentStatusId = $data['paymentStatus']['id'];
 
-        $data['mail']['isAutoSend'] = $this->isHideMailPopup($orderId, $orderStatusId, $paymentStatusId);
+        $data['mail']['isAutoSend'] = $this->isHideMailPopup($order, $orderStatusId, $paymentStatusId);
 
         $view->assign('data', $data);
     }
 
     /**
-     * @param int $orderId
+     * @param Order $order
      * @param int $orderStatusId
      * @param int $paymentStatusId
      * @return bool
      */
-    protected function isHideMailPopup($orderId, $orderStatusId, $paymentStatusId)
+    protected function isHideMailPopup(Order $order, $orderStatusId, $paymentStatusId)
     {
-        $config = $this->getConfig();
+        $shop = $order->getShop();
+        $config = $this->configReader->getByPluginName('DpnAutoStatusEmail', $shop);
 
+        $orderId = $order->getId();
         $selectedPaymentStatusIds = $config['dpnPaymentStatus'];
         $selectedOrderStatusIds = $config['dpnOrderStatus'];
 
@@ -132,12 +143,11 @@ class MailPopupSubscriber implements SubscriberInterface
     }
 
     /**
-     * @return array
+     * @param int $orderId
+     * @return object|null
      */
-    protected function getConfig()
+    protected function getOrderById($orderId)
     {
-        $shop = Shopware()->Models()->getRepository(Shop::class)->getActiveDefault();
-
-        return $this->configReader->getByPluginName('DpnAutoStatusEmail', $shop);
-    }        
+        return Shopware()->Models()->getRepository(Order::class)->find($orderId);
+    }
 }
