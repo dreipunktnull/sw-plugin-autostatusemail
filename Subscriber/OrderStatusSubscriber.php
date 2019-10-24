@@ -93,7 +93,7 @@ class OrderStatusSubscriber implements EventSubscriber
             return;
         }
 
-        $config = $this->container->get('shopware.plugin.cached_config_reader')->getByPluginName('DpnAutoStatusEmail');
+        $config = $this->getConfig();
         $selectedPaymentStatusIds = $config['dpnPaymentStatus'];
         $selectedOrderStatusIds = $config['dpnOrderStatus'];
 
@@ -143,4 +143,15 @@ class OrderStatusSubscriber implements EventSubscriber
             );
         }
     }
+
+    /**
+     * @return array
+     */
+    protected function getConfig()
+    {
+        $configReader = $this->container->get('shopware.plugin.cached_config_reader');
+        $shop = Shopware()->Models()->getRepository(Shop::class)->getActiveDefault();
+
+        return $configReader->getByPluginName('DpnAutoStatusEmail', $shop);
+    }        
 }

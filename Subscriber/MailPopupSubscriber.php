@@ -11,8 +11,8 @@ namespace DpnAutoStatusEmail\Subscriber;
  */
 
 use Enlight\Event\SubscriberInterface;
+use Shopware\Components\Plugin\CachedConfigReader;
 use Shopware\Models\Order\Order;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class MailPopupSubscriber implements SubscriberInterface
 {
@@ -22,16 +22,16 @@ class MailPopupSubscriber implements SubscriberInterface
     protected static $orders = [];
 
     /**
-     * @var ContainerInterface
+     * @var CachedConfigReader
      */
-    protected $container;
+    protected $configReader;
 
     /**
-     * @param ContainerInterface $container
+     * @param CachedConfigReader $configReader
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(CachedConfigReader $configReader) 
     {
-        $this->container = $container;
+        $this->configReader = $configReader;
     }
 
     /**
@@ -109,7 +109,7 @@ class MailPopupSubscriber implements SubscriberInterface
      */
     protected function isHideMailPopup($orderId, $orderStatusId, $paymentStatusId)
     {
-        $config = $this->container->get('shopware.plugin.cached_config_reader')->getByPluginName('DpnAutoStatusEmail');
+        $config = $this->getConfig();
 
         $selectedPaymentStatusIds = $config['dpnPaymentStatus'];
         $selectedOrderStatusIds = $config['dpnOrderStatus'];
@@ -130,4 +130,14 @@ class MailPopupSubscriber implements SubscriberInterface
 
         return false;
     }
+
+    /**
+     * @return array
+     */
+    protected function getConfig()
+    {
+        $shop = Shopware()->Models()->getRepository(Shop::class)->getActiveDefault();
+
+        return $this->configReader->getByPluginName('DpnAutoStatusEmail', $shop);
+    }        
 }
