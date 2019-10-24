@@ -11,8 +11,8 @@ namespace DpnAutoStatusEmail\Subscriber;
  */
 
 use Enlight\Event\SubscriberInterface;
+use Shopware\Components\Plugin\CachedConfigReader;
 use Shopware\Models\Order\Order;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class MailPopupSubscriber implements SubscriberInterface
 {
@@ -22,16 +22,16 @@ class MailPopupSubscriber implements SubscriberInterface
     protected static $orders = [];
 
     /**
-     * @var ContainerInterface
+     * @var CachedConfigReader
      */
-    protected $container;
+    protected $configReader;
 
     /**
-     * @param ContainerInterface $container
+     * @param CachedConfigReader $configReader
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(CachedConfigReader $configReader) 
     {
-        $this->container = $container;
+        $this->configReader = $configReader;
     }
 
     /**
@@ -67,8 +67,11 @@ class MailPopupSubscriber implements SubscriberInterface
             return;
         }
 
-        /** @var Order $order */
-        $order = Shopware()->Models()->getRepository(Order::class)->find($orderId);
+        $order = $this->getOrderById($orderId);
+
+        if (null === $order) {
+            return;
+        }
 
         static::$orders[$orderId] = [
             'orderStatusBefore' => $order->getOrderStatus()->getId(),
@@ -90,27 +93,35 @@ class MailPopupSubscriber implements SubscriberInterface
             return;
         }
 
+        $order = $this->getOrderById($orderId);
+
+        if (null === $order) {
+            return;
+        }
+
         $view = $controller->View();
         $data = $view->getAssign('data');
 
         $orderStatusId = $data['orderStatus']['id'];
         $paymentStatusId = $data['paymentStatus']['id'];
 
-        $data['mail']['isAutoSend'] = $this->isHideMailPopup($orderId, $orderStatusId, $paymentStatusId);
+        $data['mail']['isAutoSend'] = $this->isHideMailPopup($order, $orderStatusId, $paymentStatusId);
 
         $view->assign('data', $data);
     }
 
     /**
-     * @param int $orderId
+     * @param Order $order
      * @param int $orderStatusId
      * @param int $paymentStatusId
      * @return bool
      */
-    protected function isHideMailPopup($orderId, $orderStatusId, $paymentStatusId)
+    protected function isHideMailPopup(Order $order, $orderStatusId, $paymentStatusId)
     {
-        $config = $this->container->get('shopware.plugin.cached_config_reader')->getByPluginName('DpnAutoStatusEmail');
+        $shop = $order->getShop();
+        $config = $this->configReader->getByPluginName('DpnAutoStatusEmail', $shop);
 
+        $orderId = $order->getId();
         $selectedPaymentStatusIds = $config['dpnPaymentStatus'];
         $selectedOrderStatusIds = $config['dpnOrderStatus'];
 
@@ -129,5 +140,14 @@ class MailPopupSubscriber implements SubscriberInterface
         }
 
         return false;
+    }
+
+    /**
+     * @param int $orderId
+     * @return object|null
+     */
+    protected function getOrderById($orderId)
+    {
+        return Shopware()->Models()->getRepository(Order::class)->find($orderId);
     }
 }

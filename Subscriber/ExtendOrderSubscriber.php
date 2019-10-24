@@ -51,5 +51,4 @@ class ExtendOrderSubscriber implements SubscriberInterface
             $controller->View()->extendsTemplate('backend/dpn_auto_status_email/order/model/mail.js');
         }
     }
-
 }

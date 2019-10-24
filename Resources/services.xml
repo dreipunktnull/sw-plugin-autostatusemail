@@ -9,7 +9,7 @@
             <tag name="doctrine.event_subscriber" />
         </service>
         <service id="dpn_auto_status_email.subscriber.mail_popup" class="DpnAutoStatusEmail\Subscriber\MailPopupSubscriber">
-            <argument type="service" id="service_container"/>
+            <argument type="service" id="shopware.plugin.cached_config_reader"/>
             <tag name="shopware.event_subscriber" />
         </service>
         <service id="dpn_auto_status_email.subscriber.templates" class="DpnAutoStatusEmail\Subscriber\ExtendOrderSubscriber">
