@@ -93,8 +93,13 @@ class OrderStatusSubscriber implements EventSubscriber
         if (!isset(static::$orders[$orderId])) {
             return;
         }
+
         $shop = $order->getShop();
         $config = $this->getConfig($shop);
+
+        if (false === $config['dpnEnabled']) {
+            return;
+        }
 
         $selectedPaymentStatusIds = $config['dpnPaymentStatus'];
         $selectedOrderStatusIds = $config['dpnOrderStatus'];
@@ -103,12 +108,20 @@ class OrderStatusSubscriber implements EventSubscriber
 
         if ($changedStatus['order']) {
             $newOrderStatusId = $order->getOrderStatus()->getId();
-            $this->sendStatusEmail($orderId, $newOrderStatusId, $selectedOrderStatusIds);
+            $this->sendStatusEmail(
+                $orderId,
+                $newOrderStatusId,
+                $selectedOrderStatusIds
+            );
         }
 
         if ($changedStatus['payment']) {
             $newPaymentStatusId = $order->getPaymentStatus()->getId();
-            $this->sendStatusEmail($orderId, $newPaymentStatusId, $selectedPaymentStatusIds);
+            $this->sendStatusEmail(
+                $orderId,
+                $newPaymentStatusId,
+                $selectedPaymentStatusIds
+            );
         }
     }
 

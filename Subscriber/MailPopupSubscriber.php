@@ -105,7 +105,11 @@ class MailPopupSubscriber implements SubscriberInterface
         $orderStatusId = $data['orderStatus']['id'];
         $paymentStatusId = $data['paymentStatus']['id'];
 
-        $data['mail']['isAutoSend'] = $this->isHideMailPopup($order, $orderStatusId, $paymentStatusId);
+        $data['mail']['isAutoSend'] = $this->isHideMailPopup(
+            $order,
+            $orderStatusId,
+            $paymentStatusId
+        );
 
         $view->assign('data', $data);
     }
@@ -120,6 +124,10 @@ class MailPopupSubscriber implements SubscriberInterface
     {
         $shop = $order->getShop();
         $config = $this->configReader->getByPluginName('DpnAutoStatusEmail', $shop);
+
+        if (false === $config['dpnEnabled']) {
+            return false;
+        }
 
         $orderId = $order->getId();
         $selectedPaymentStatusIds = $config['dpnPaymentStatus'];
@@ -144,7 +152,7 @@ class MailPopupSubscriber implements SubscriberInterface
 
     /**
      * @param int $orderId
-     * @return object|null
+     * @return Order|null
      */
     protected function getOrderById($orderId)
     {
