@@ -3,6 +3,12 @@
         xsi:noNamespaceSchemaLocation="../../../../engine/Shopware/Components/Plugin/schema/config.xsd">
 
     <elements>
+        <element type="boolean" scope="shop">
+            <name>dpnEnabled</name>
+            <label>Enable auto status emails</label>
+            <label lang="de">Automatische Status E-Mails aktivieren</label>
+            <value>true</value>
+        </element>
         <element type="combo" scope="shop">
             <name>dpnOrderStatus</name>
             <label>Order Status</label>
