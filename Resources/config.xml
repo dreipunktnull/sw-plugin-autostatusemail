@@ -9,6 +9,14 @@
             <label lang="de">Automatische Status E-Mails aktivieren</label>
             <value>true</value>
         </element>
+        <element type="boolean" scope="shop">
+            <name>dpnCommentEnabled</name>
+            <label>Enable comment</label>
+            <label lang="de">Kommentar aktivieren</label>
+            <value>false</value>
+            <description>Add internal comments to orders for automatically sent emails</description>
+            <description lang="de">Internen Kommentar zu Bestellungen für versandte E-Mails hinzufügen</description>
+        </element>
         <element type="combo" scope="shop">
             <name>dpnOrderStatus</name>
             <label>Order Status</label>
