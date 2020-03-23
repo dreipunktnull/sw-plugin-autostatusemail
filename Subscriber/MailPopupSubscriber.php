@@ -129,6 +129,15 @@ class MailPopupSubscriber implements SubscriberInterface
             return false;
         }
 
+        $recipientGroups = $config['dpnCustomerGroups'];
+        $group = $order->getCustomer()->getGroup();
+        $groupId = $group ? $group->getId() : null;
+
+        // Skip further processing in case customer groups are selected which current customer is not a member of
+        if ($groupId && count($recipientGroups) > 0 && !in_array($groupId, $recipientGroups, true)) {
+            return false;
+        }
+
         $orderId = $order->getId();
         $selectedPaymentStatusIds = $config['dpnPaymentStatus'];
         $selectedOrderStatusIds = $config['dpnOrderStatus'];
