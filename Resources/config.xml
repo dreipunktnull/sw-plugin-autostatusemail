@@ -43,6 +43,19 @@
                 <multiSelect>true</multiSelect>
             </options>
         </element>
+        <element type="combo" scope="shop">
+            <name>dpnCustomerGroups</name>
+            <label>Customer Groups</label>
+            <label lang="de">Kundengruppen</label>
+            <description>Customer groups to send emails to. No selection includes all groups.</description>
+            <description lang="de">Kundengruppen, an die E-Mails versendet werden sollen. Wenn keine Auswahl getroffen wird, werden alle Gruppen eingeschlossen.</description>
+            <store>Shopware.store.CustomerGroup</store>
+            <options>
+                <valueField>id</valueField>
+                <displayField>name</displayField>
+                <multiSelect>true</multiSelect>
+            </options>
+        </element>
     </elements>
 
 </config>

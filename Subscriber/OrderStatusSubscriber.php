@@ -71,6 +71,17 @@ class OrderStatusSubscriber implements EventSubscriber
             return;
         }
 
+        $shop = $order->getShop();
+        $config = $this->getConfig($shop);
+        $recipientGroups = $config['dpnCustomerGroups'];
+        $group = $order->getCustomer()->getGroup();
+        $groupId = $group ? $group->getId() : null;
+
+        // Skip further processing in case customer groups are selected which current customer is not a member of
+        if ($groupId && count($recipientGroups) > 0 && !in_array($groupId, $recipientGroups, true)) {
+            return;
+        }
+
         if (!$eventArgs->hasChangedField('orderStatus') && !$eventArgs->hasChangedField('paymentStatus')) {
             return;
         }
