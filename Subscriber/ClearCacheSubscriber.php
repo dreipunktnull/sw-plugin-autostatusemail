@@ -2,6 +2,14 @@
 
 namespace DpnAutoStatusEmail\Subscriber;
 
+/**
+ * Copyright notice
+ *
+ * (c) Björn Fromme <fromme@dreipunktnull.com>, dreipunktnull
+ *
+ * All rights reserved
+ */
+
 use Enlight\Event\SubscriberInterface;
 use Shopware\Components\CacheManager;
 use Shopware_Controllers_Backend_Config;
