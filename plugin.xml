@@ -3,7 +3,7 @@
         xsi:noNamespaceSchemaLocation="../../../engine/Shopware/Components/Plugin/schema/plugin.xsd">
     <label>Automatic status emails</label>
     <label lang="de">Automatische Status E-Mails</label>
-    <version>1.4.1</version>
+    <version>1.4.2</version>
     <copyright>(c) 3.0</copyright>
     <link>https://dreipunktnull.com</link>
     <author>Björn Fromme, 3.0</author>
@@ -67,5 +67,9 @@
     <changelog version="1.4.1">
         <changes>Fixes an issue with Shopware versions lower than 5.5</changes>
         <changes lang="de">Behebt ein Problem mit Shopware Versionen älter als 5.5</changes>
+    </changelog>
+    <changelog version="1.4.2">
+        <changes>Fixes a regression in 1.4.1</changes>
+        <changes lang="de">Behebt eine Regression in 1.4.1</changes>
     </changelog>
 </plugin>
