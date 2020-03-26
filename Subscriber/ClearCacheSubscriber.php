@@ -47,6 +47,7 @@ class ClearCacheSubscriber implements SubscriberInterface
 
         if ($request->isPost() && $request->getParam('name') === $this->pluginName) {
             $this->cacheManager->clearByTag(CacheManager::CACHE_TAG_CONFIG);
+            $this->cacheManager->clearConfigCache();
         }
     }
 }
