@@ -44,6 +44,19 @@
             </options>
         </element>
         <element type="combo" scope="shop">
+            <name>dpnTrackingCodeStatus</name>
+            <label>Order Status with Tracking Code</label>
+            <label lang="de">Bestellstatus mit Tracking Code</label>
+            <description>Order status to send emails for when a shipment tracking code has been assigned</description>
+            <description lang="de">Bestellstatus, bei denen E-Mails versendet werden sollen, wenn ein Tracking Code gesetzt wurde</description>
+            <store>Shopware.store.OrderStatus</store>
+            <options>
+                <valueField>id</valueField>
+                <displayField>description</displayField>
+                <multiSelect>true</multiSelect>
+            </options>
+        </element>
+        <element type="combo" scope="shop">
             <name>dpnCustomerGroups</name>
             <label>Customer Groups</label>
             <label lang="de">Kundengruppen</label>
