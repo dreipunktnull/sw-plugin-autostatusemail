@@ -141,14 +141,19 @@ class MailPopupSubscriber implements SubscriberInterface
         $orderId = $order->getId();
         $selectedPaymentStatusIds = $config['dpnPaymentStatus'];
         $selectedOrderStatusIds = $config['dpnOrderStatus'];
+        $selectedTrackingCodeStatusIds = $config['dpnTrackingCodeStatus'];
 
         $isSelectedOrderStatusId = in_array($orderStatusId, $selectedOrderStatusIds, true);
         $isSelectedPaymentStatusId = in_array($paymentStatusId, $selectedPaymentStatusIds, true);
+        $isSelectedTrackingCodeStatusId = in_array($orderStatusId, $selectedTrackingCodeStatusIds, true);
 
         $isOrderStatusChanged = static::$orders[$orderId]['orderStatusBefore'] !== $orderStatusId;
         $isPaymentStatusChanged = static::$orders[$orderId]['paymentStatusBefore'] !== $paymentStatusId;
 
-        if ($isOrderStatusChanged && $isSelectedOrderStatusId) {
+        if (
+            ($isOrderStatusChanged && $isSelectedOrderStatusId) ||
+            ($isSelectedTrackingCodeStatusId && !empty($order->getTrackingCode()))
+        ) {
             return true;
         }
 

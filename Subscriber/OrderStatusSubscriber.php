@@ -82,13 +82,18 @@ class OrderStatusSubscriber implements EventSubscriber
             return;
         }
 
-        if (!$eventArgs->hasChangedField('orderStatus') && !$eventArgs->hasChangedField('paymentStatus')) {
+        if (
+            !$eventArgs->hasChangedField('orderStatus')
+            && !$eventArgs->hasChangedField('paymentStatus')
+            && !$eventArgs->hasChangedField('trackingCode')
+        ) {
             return;
         }
 
         static::$orders[$orderId] = [
             'order' => $eventArgs->hasChangedField('orderStatus'),
             'payment' => $eventArgs->hasChangedField('paymentStatus'),
+            'trackingCode' => $eventArgs->hasChangedField('trackingCode'),
         ];
     }
 
@@ -118,12 +123,16 @@ class OrderStatusSubscriber implements EventSubscriber
 
         $selectedPaymentStatusIds = $config['dpnPaymentStatus'];
         $selectedOrderStatusIds = $config['dpnOrderStatus'];
+        $selectedTrackingCodeStatusIds = $config['dpnTrackingCodeStatus'];
 
         $changedStatus = static::$orders[$orderId];
 
         if ($changedStatus['order']) {
             $newOrderStatusId = $order->getOrderStatus()->getId();
             $this->sendStatusEmail($order, $newOrderStatusId, $selectedOrderStatusIds);
+            if (!empty($order->getTrackingCode())) {
+                $this->sendStatusEmail($order, $newOrderStatusId, $selectedTrackingCodeStatusIds);
+            }
             if (true === $config['dpnCommentEnabled']) {
                 $this->addComment($order, static::STATUS_TYPE_ORDER);
             }
@@ -134,6 +143,14 @@ class OrderStatusSubscriber implements EventSubscriber
             $this->sendStatusEmail($order, $newPaymentStatusId, $selectedPaymentStatusIds);
             if (true === $config['dpnCommentEnabled']) {
                 $this->addComment($order, static::STATUS_TYPE_PAYMENT);
+            }
+        }
+
+        if ($changedStatus['trackingCode']) {
+            $newOrderStatusId = $order->getOrderStatus()->getId();
+            $this->sendStatusEmail($order, $newOrderStatusId, $selectedTrackingCodeStatusIds);
+            if (true === $config['dpnCommentEnabled']) {
+                $this->addComment($order, static::STATUS_TYPE_ORDER);
             }
         }
     }
