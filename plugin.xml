@@ -4,10 +4,13 @@
     <label>Automatic status emails</label>
     <label lang="de">Automatische Status E-Mails</label>
     <version>1.5.0</version>
-    <copyright>(c) 3.0</copyright>
+    <copyright>(c) dreipunktnull GmbH</copyright>
     <link>https://dreipunktnull.com</link>
-    <author>Björn Fromme, 3.0</author>
+    <author>Björn Fromme, dreipunktnull GmbH</author>
     <compatibility minVersion="5.2.0" />
+    <license>proprietary</license>
+    <description>Automatic sending of notification emails to customers on changes in order- and/or payment status</description>
+    <description lang="de">Automatischer Versand von E-Mails bei Änderung des Bestell- oder Zahlungsstatus.</description>
     <changelog version="1.0.0">
         <changes>Initial plugin release</changes>
         <changes lang="de">Erster Plugin Release</changes>
