@@ -3,7 +3,7 @@
         xsi:noNamespaceSchemaLocation="../../../engine/Shopware/Components/Plugin/schema/plugin.xsd">
     <label>Automatic status emails</label>
     <label lang="de">Automatische Status E-Mails</label>
-    <version>1.5.0</version>
+    <version>1.5.1</version>
     <copyright>(c) dreipunktnull GmbH</copyright>
     <link>https://dreipunktnull.com</link>
     <author>Björn Fromme, dreipunktnull GmbH</author>
@@ -78,5 +78,9 @@
     <changelog version="1.5.0">
         <changes>New configuration option for status that should trigger email sending only in combination with a shipment tracking code</changes>
         <changes lang="de">Neue Konfigurationsmöglichkeit zur Auswahl von Status, die den E-Mail Versand nur in Kombination mit einem Tracking Code auslösen</changes>
+    </changelog>
+    <changelog version="1.5.1">
+        <changes>Fixes a regression in 1.5.0</changes>
+        <changes lang="de">Behebt eine Regression in 1.5.0</changes>
     </changelog>
 </plugin>

@@ -121,9 +121,9 @@ class OrderStatusSubscriber implements EventSubscriber
             return;
         }
 
-        $selectedPaymentStatusIds = $config['dpnPaymentStatus'];
-        $selectedOrderStatusIds = $config['dpnOrderStatus'];
-        $selectedTrackingCodeStatusIds = $config['dpnTrackingCodeStatus'];
+        $selectedPaymentStatusIds = $config['dpnPaymentStatus'] ?? [];
+        $selectedOrderStatusIds = $config['dpnOrderStatus'] ?? [];
+        $selectedTrackingCodeStatusIds = $config['dpnTrackingCodeStatus'] ?? [];
 
         $changedStatus = static::$orders[$orderId];
 
