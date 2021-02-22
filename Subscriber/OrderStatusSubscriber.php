@@ -126,13 +126,23 @@ class OrderStatusSubscriber implements EventSubscriber
         $selectedTrackingCodeStatusIds = is_array($config['dpnTrackingCodeStatus']) ? $config['dpnTrackingCodeStatus'] : [];
 
         $changedStatus = static::$orders[$orderId];
+        $trackingCodeStatusEmailSent = false;
 
         if ($changedStatus['order']) {
             $newOrderStatusId = $order->getOrderStatus()->getId();
             $this->sendStatusEmail($order, $newOrderStatusId, $selectedOrderStatusIds);
             if (!empty($order->getTrackingCode())) {
                 $this->sendStatusEmail($order, $newOrderStatusId, $selectedTrackingCodeStatusIds);
+                $trackingCodeStatusEmailSent = true;
             }
+            if (true === $config['dpnCommentEnabled']) {
+                $this->addComment($order, static::STATUS_TYPE_ORDER);
+            }
+        }
+
+        if ($changedStatus['trackingCode'] && false === $trackingCodeStatusEmailSent && !empty($order->getTrackingCode())) {
+            $newOrderStatusId = $order->getOrderStatus()->getId();
+            $this->sendStatusEmail($order, $newOrderStatusId, $selectedTrackingCodeStatusIds);
             if (true === $config['dpnCommentEnabled']) {
                 $this->addComment($order, static::STATUS_TYPE_ORDER);
             }
@@ -143,14 +153,6 @@ class OrderStatusSubscriber implements EventSubscriber
             $this->sendStatusEmail($order, $newPaymentStatusId, $selectedPaymentStatusIds);
             if (true === $config['dpnCommentEnabled']) {
                 $this->addComment($order, static::STATUS_TYPE_PAYMENT);
-            }
-        }
-
-        if ($changedStatus['trackingCode']) {
-            $newOrderStatusId = $order->getOrderStatus()->getId();
-            $this->sendStatusEmail($order, $newOrderStatusId, $selectedTrackingCodeStatusIds);
-            if (true === $config['dpnCommentEnabled']) {
-                $this->addComment($order, static::STATUS_TYPE_ORDER);
             }
         }
     }

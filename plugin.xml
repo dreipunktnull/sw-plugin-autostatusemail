@@ -3,7 +3,7 @@
         xsi:noNamespaceSchemaLocation="../../../engine/Shopware/Components/Plugin/schema/plugin.xsd">
     <label>Automatic status emails</label>
     <label lang="de">Automatische Status E-Mails</label>
-    <version>1.5.1</version>
+    <version>1.5.2</version>
     <copyright>(c) dreipunktnull GmbH</copyright>
     <link>https://dreipunktnull.com</link>
     <author>Björn Fromme, dreipunktnull GmbH</author>
@@ -82,5 +82,9 @@
     <changelog version="1.5.1">
         <changes>Fixes a regression in 1.5.0</changes>
         <changes lang="de">Behebt eine Regression in 1.5.0</changes>
+    </changelog>
+    <changelog version="1.5.2">
+        <changes>Fixes an issue that could cause duplicate sending of emails in connection with tracking codes</changes>
+        <changes lang="de">Behebt ein Problem, dass den mehrfachem Versand von E-Mails im Zusammenhang mit Tracking Codes verursachen kann</changes>
     </changelog>
 </plugin>
