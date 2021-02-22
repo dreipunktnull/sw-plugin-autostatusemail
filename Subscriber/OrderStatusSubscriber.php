@@ -130,28 +130,28 @@ class OrderStatusSubscriber implements EventSubscriber
 
         if ($changedStatus['order']) {
             $newOrderStatusId = $order->getOrderStatus()->getId();
-            $this->sendStatusEmail($order, $newOrderStatusId, $selectedOrderStatusIds);
+            $isSent = $this->sendStatusEmail($order, $newOrderStatusId, $selectedOrderStatusIds);
             if (!empty($order->getTrackingCode())) {
-                $this->sendStatusEmail($order, $newOrderStatusId, $selectedTrackingCodeStatusIds);
+                $isSent = $this->sendStatusEmail($order, $newOrderStatusId, $selectedTrackingCodeStatusIds);
                 $trackingCodeStatusEmailSent = true;
             }
-            if (true === $config['dpnCommentEnabled']) {
+            if (true === $isSent && true === $config['dpnCommentEnabled']) {
                 $this->addComment($order, static::STATUS_TYPE_ORDER);
             }
         }
 
         if ($changedStatus['trackingCode'] && false === $trackingCodeStatusEmailSent && !empty($order->getTrackingCode())) {
             $newOrderStatusId = $order->getOrderStatus()->getId();
-            $this->sendStatusEmail($order, $newOrderStatusId, $selectedTrackingCodeStatusIds);
-            if (true === $config['dpnCommentEnabled']) {
+            $isSent = $this->sendStatusEmail($order, $newOrderStatusId, $selectedTrackingCodeStatusIds);
+            if (true === $isSent && true === $config['dpnCommentEnabled']) {
                 $this->addComment($order, static::STATUS_TYPE_ORDER);
             }
         }
 
         if ($changedStatus['payment']) {
             $newPaymentStatusId = $order->getPaymentStatus()->getId();
-            $this->sendStatusEmail($order, $newPaymentStatusId, $selectedPaymentStatusIds);
-            if (true === $config['dpnCommentEnabled']) {
+            $isSent = $this->sendStatusEmail($order, $newPaymentStatusId, $selectedPaymentStatusIds);
+            if (true === $isSent && true === $config['dpnCommentEnabled']) {
                 $this->addComment($order, static::STATUS_TYPE_PAYMENT);
             }
         }
@@ -165,7 +165,7 @@ class OrderStatusSubscriber implements EventSubscriber
     protected function sendStatusEmail(Order $order, $newStatusId, array $selectedStatusIds)
     {
         if (!in_array($newStatusId, $selectedStatusIds, true)) {
-            return;
+            return false;
         }
         $orderId = $order->getId();
         $mail = Shopware()->Modules()->Order()->createStatusMail($orderId, $newStatusId);
@@ -175,6 +175,7 @@ class OrderStatusSubscriber implements EventSubscriber
         }
         try {
             Shopware()->Modules()->Order()->sendStatusMail($mail);
+            return true;
         }
         catch (\Exception $e) {
             /** @var Logger $logger */
@@ -186,6 +187,7 @@ class OrderStatusSubscriber implements EventSubscriber
                     'status' => $newStatusId,
                 ]
             );
+            return false;
         }
     }
 
