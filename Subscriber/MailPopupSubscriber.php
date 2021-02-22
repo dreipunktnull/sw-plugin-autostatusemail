@@ -152,7 +152,7 @@ class MailPopupSubscriber implements SubscriberInterface
 
         if (
             ($isOrderStatusChanged && $isSelectedOrderStatusId) ||
-            ($isSelectedTrackingCodeStatusId && !empty($order->getTrackingCode()))
+            ($isOrderStatusChanged && $isSelectedTrackingCodeStatusId && !empty($order->getTrackingCode()))
         ) {
             return true;
         }
