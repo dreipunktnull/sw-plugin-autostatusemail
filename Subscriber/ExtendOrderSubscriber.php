@@ -38,9 +38,9 @@ class ExtendOrderSubscriber implements SubscriberInterface
     }
 
     /**
-     * @param \Enlight_Event_EventArgs $args
+     * @param \Enlight_Controller_ActionEventArgs $args
      */
-    public function onBackendOrderPostDispatch(\Enlight_Event_EventArgs $args)
+    public function onBackendOrderPostDispatch(\Enlight_Controller_ActionEventArgs $args)
     {
         /** @var \Shopware_Controllers_Backend_Article $controller */
         $controller = $args->getSubject();

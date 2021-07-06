@@ -3,7 +3,7 @@
         xsi:noNamespaceSchemaLocation="../../../engine/Shopware/Components/Plugin/schema/plugin.xsd">
     <label>Automatic status emails</label>
     <label lang="de">Automatische Status E-Mails</label>
-    <version>1.5.3</version>
+    <version>1.5.4</version>
     <copyright>(c) dreipunktnull GmbH</copyright>
     <link>https://dreipunktnull.com</link>
     <author>Björn Fromme, dreipunktnull GmbH</author>
@@ -90,5 +90,9 @@
     <changelog version="1.5.3">
         <changes>Fixes an issue with incorrectly added internal comments and opening of feedback modal in backend</changes>
         <changes lang="de">Behebt ein Problem mit fälschlicherweise gesetzten internen Kommentaren und dem Öffnen des Feedback Modals im Backend</changes>
+    </changelog>
+    <changelog version="1.5.4">
+        <changes>Code cleanup</changes>
+        <changes lang="de">Codebereinigung</changes>
     </changelog>
 </plugin>

@@ -39,10 +39,10 @@ class ClearCacheSubscriber implements SubscriberInterface
         ];
     }
 
-    public function onPostDispatchConfig(\Enlight_Event_EventArgs $args)
+    public function onPostDispatchConfig(\Enlight_Controller_ActionEventArgs $args)
     {
         /** @var Shopware_Controllers_Backend_Config $subject */
-        $subject = $args->get('subject');
+        $subject = $args->getSubject();
         $request = $subject->Request();
 
         if ($request->isPost() && $request->getParam('name') === $this->pluginName) {
