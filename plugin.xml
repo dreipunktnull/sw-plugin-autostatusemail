@@ -92,7 +92,7 @@
         <changes lang="de">Behebt ein Problem mit fälschlicherweise gesetzten internen Kommentaren und dem Öffnen des Feedback Modals im Backend</changes>
     </changelog>
     <changelog version="1.5.4">
-        <changes>Fixes an incompatibility with PHP 8</changes>
-        <changes lang="de">Behebt eine Inkompatibilität mit PHP 8</changes>
+        <changes>Code cleanup</changes>
+        <changes lang="de">Codebereinigung</changes>
     </changelog>
 </plugin>

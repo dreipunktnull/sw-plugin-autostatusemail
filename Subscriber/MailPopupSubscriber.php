@@ -46,9 +46,9 @@ class MailPopupSubscriber implements SubscriberInterface
     }
 
     /**
-     * @param \Enlight_Event_EventArgs $args
+     * @param \Enlight_Controller_ActionEventArgs $args
      */
-    public function onBackendOrderPre(\Enlight_Event_EventArgs $args)
+    public function onBackendOrderPre(\Enlight_Controller_ActionEventArgs $args)
     {
         /** @var \Shopware_Controllers_Backend_Order $controller */
         $controller = $args->getSubject();
@@ -80,9 +80,9 @@ class MailPopupSubscriber implements SubscriberInterface
     }
 
     /**
-     * @param \Enlight_Event_EventArgs $args
+     * @param \Enlight_Controller_ActionEventArgs $args
      */
-    public function onBackendOrderPost(\Enlight_Event_EventArgs $args)
+    public function onBackendOrderPost(\Enlight_Controller_ActionEventArgs $args)
     {
         /** @var \Shopware_Controllers_Backend_Order $controller */
         $controller = $args->getSubject();
