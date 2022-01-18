@@ -3,7 +3,7 @@
         xsi:noNamespaceSchemaLocation="../../../engine/Shopware/Components/Plugin/schema/plugin.xsd">
     <label>Automatic status emails</label>
     <label lang="de">Automatische Status E-Mails</label>
-    <version>1.5.4</version>
+    <version>1.5.5</version>
     <copyright>(c) dreipunktnull GmbH</copyright>
     <link>https://dreipunktnull.com</link>
     <author>Björn Fromme, dreipunktnull GmbH</author>
@@ -94,5 +94,9 @@
     <changelog version="1.5.4">
         <changes>Code cleanup</changes>
         <changes lang="de">Codebereinigung</changes>
+    </changelog>
+    <changelog version="1.5.5">
+        <changes>Fixes an incompatibility with PHP 8</changes>
+        <changes lang="de">Behebt eine Inkompatibilität mit PHP 8</changes>
     </changelog>
 </plugin>
