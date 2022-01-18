@@ -78,7 +78,7 @@ class OrderStatusSubscriber implements EventSubscriber
         $groupId = $group ? $group->getId() : null;
 
         // Skip further processing in case customer groups are selected which current customer is not a member of
-        if ($groupId && count($recipientGroups) > 0 && !in_array($groupId, $recipientGroups, true)) {
+        if ($groupId && count($recipientGroups) > 0 && !in_array($groupId, (array)$recipientGroups, true)) {
             return;
         }
 
@@ -164,7 +164,7 @@ class OrderStatusSubscriber implements EventSubscriber
      */
     protected function sendStatusEmail(Order $order, $newStatusId, array $selectedStatusIds)
     {
-        if (!in_array($newStatusId, $selectedStatusIds, true)) {
+        if (!in_array($newStatusId, (array)$selectedStatusIds, true)) {
             return false;
         }
         $orderId = $order->getId();

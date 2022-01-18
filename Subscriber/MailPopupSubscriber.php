@@ -134,7 +134,7 @@ class MailPopupSubscriber implements SubscriberInterface
         $groupId = $group ? $group->getId() : null;
 
         // Skip further processing in case customer groups are selected which current customer is not a member of
-        if ($groupId && count($recipientGroups) > 0 && !in_array($groupId, $recipientGroups, true)) {
+        if ($groupId && count($recipientGroups) > 0 && !in_array($groupId, (array)$recipientGroups, true)) {
             return false;
         }
 
@@ -143,9 +143,9 @@ class MailPopupSubscriber implements SubscriberInterface
         $selectedOrderStatusIds = $config['dpnOrderStatus'];
         $selectedTrackingCodeStatusIds = $config['dpnTrackingCodeStatus'];
 
-        $isSelectedOrderStatusId = in_array($orderStatusId, $selectedOrderStatusIds, true);
-        $isSelectedPaymentStatusId = in_array($paymentStatusId, $selectedPaymentStatusIds, true);
-        $isSelectedTrackingCodeStatusId = in_array($orderStatusId, $selectedTrackingCodeStatusIds, true);
+        $isSelectedOrderStatusId = in_array($orderStatusId, (array)$selectedOrderStatusIds, true);
+        $isSelectedPaymentStatusId = in_array($paymentStatusId, (array)$selectedPaymentStatusIds, true);
+        $isSelectedTrackingCodeStatusId = in_array($orderStatusId, (array)$selectedTrackingCodeStatusIds, true);
 
         $isOrderStatusChanged = static::$orders[$orderId]['orderStatusBefore'] !== $orderStatusId;
         $isPaymentStatusChanged = static::$orders[$orderId]['paymentStatusBefore'] !== $paymentStatusId;
