@@ -4,4 +4,4 @@ Using this plugin notification emails for order- and payment status changes via 
 
 **Notice:** This plugin is designed to work with the API primarily and is not compatible with batch processing via backend.
 
-The plugin is compatible with Shopware version 5.2.0 and greater. It is not compatible to Shopware 6.
+The plugin is compatible with Shopware version 5.2.0 and greater. It is not compatible with Shopware 6.
